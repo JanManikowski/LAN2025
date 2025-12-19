@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LANimals 2025 Schedule</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap');
+* {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+        color: #fff;
+        padding: 40px 20px;
+        min-height: 100vh;
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .header {
+        text-align: center;
+        padding: 60px 30px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+        backdrop-filter: blur(20px);
+        border-radius: 30px;
+        margin-bottom: 50px;
+        border: 3px solid rgba(255, 215, 0, 0.4);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+        animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .header-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .header h1 {
+        font-size: 4em;
+        margin-bottom: 15px;
+        font-weight: 900;
+        text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+        letter-spacing: 2px;
+    }
+
+    .header .subtitle {
+        font-size: 1.5em;
+        opacity: 0.95;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+
+    .header .tagline {
+        font-size: 1.8em;
+        color: #ffd700;
+        font-weight: 700;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    .day-section {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06));
+        backdrop-filter: blur(15px);
+        border-radius: 25px;
+        padding: 35px;
+        margin-bottom: 35px;
+        border: 2px solid rgba(255, 255, 255, 0.25);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .day-header {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 3px solid rgba(255, 215, 0, 0.5);
+    }
+
+    .day-icon {
+        font-size: 2.5em;
+    }
+
+    .day-title {
+        font-size: 2.3em;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    .event {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.08));
+        border-radius: 18px;
+        padding: 25px;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+        border-left: 6px solid transparent;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .event:hover {
+        transform: translateX(8px);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.12));
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .event.main-event {
+        border-left-color: #ffd700;
+        background: linear-gradient(135deg, rgba(255, 215, 0, 0.25), rgba(255, 165, 0, 0.15));
+        box-shadow: 0 12px 35px rgba(255, 215, 0, 0.3);
+    }
+
+    .event.tournament {
+        border-left-color: #ff6b6b;
+    }
+
+    .event.special {
+        border-left-color: #ff1493;
+    }
+
+    .event.coop {
+        border-left-color: #4ecdc4;
+    }
+
+    .event.free {
+        border-left-color: #95e1d3;
+    }
+
+    .event-time {
+        font-size: 1.4em;
+        font-weight: 700;
+        color: #ffd700;
+        margin-bottom: 10px;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    .event-title {
+        font-size: 1.5em;
+        font-weight: 700;
+        margin-bottom: 12px;
+        line-height: 1.3;
+    }
+
+    .event-description {
+        opacity: 0.95;
+        line-height: 1.7;
+        font-size: 1.05em;
+    }
+
+    .event-list {
+        margin-top: 12px;
+        padding-left: 25px;
+    }
+
+    .event-list li {
+        margin: 8px 0;
+        line-height: 1.6;
+    }
+
+    .badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #ffd700, #ffed4e);
+        color: #1e3c72;
+        padding: 6px 16px;
+        border-radius: 25px;
+        font-size: 0.8em;
+        font-weight: 700;
+        margin-left: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 4px 10px rgba(255, 215, 0, 0.4);
+    }
+
+    .notes {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06));
+        backdrop-filter: blur(15px);
+        border-radius: 25px;
+        padding: 35px;
+        margin-top: 40px;
+        border: 2px solid rgba(255, 255, 255, 0.25);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .notes h3 {
+        font-size: 2em;
+        margin-bottom: 25px;
+        color: #ffd700;
+        font-weight: 700;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .note-item {
+        margin-bottom: 18px;
+        padding-left: 30px;
+        position: relative;
+        line-height: 1.7;
+    }
+
+    .note-item:before {
+        content: "🎮";
+        position: absolute;
+        left: 0;
+        font-size: 1.2em;
+    }
+
+    .suggestions {
+        background: linear-gradient(135deg, rgba(126, 34, 206, 0.2), rgba(79, 70, 229, 0.2));
+        backdrop-filter: blur(15px);
+        border-radius: 25px;
+        padding: 35px;
+        margin-top: 40px;
+        border: 2px solid rgba(167, 139, 250, 0.4);
+        box-shadow: 0 15px 40px rgba(126, 34, 206, 0.3);
+    }
+
+    .suggestions h3 {
+        font-size: 2em;
+        margin-bottom: 25px;
+        color: #c4b5fd;
+        font-weight: 700;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .suggestions-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    .suggestion-category {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        border-radius: 15px;
+        border-left: 4px solid #c4b5fd;
+    }
+
+    .suggestion-category h4 {
+        font-size: 1.2em;
+        margin-bottom: 12px;
+        color: #ffd700;
+        font-weight: 600;
+    }
+
+    .suggestion-category ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .suggestion-category li {
+        margin: 8px 0;
+        padding-left: 20px;
+        position: relative;
+        line-height: 1.5;
+    }
+
+    .suggestion-category li:before {
+        content: "▸";
+        position: absolute;
+        left: 0;
+        color: #c4b5fd;
+        font-weight: bold;
+    }
+
+    .footer {
+        text-align: center;
+        padding: 40px;
+        font-size: 1.6em;
+        opacity: 0.9;
+        margin-top: 30px;
+        font-weight: 600;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    @media print {
+        body {
+            background: white;
+            color: black;
+        }
+        .header, .day-section, .notes, .suggestions {
+            border: 1px solid #ccc;
+            box-shadow: none;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .header h1 {
+            font-size: 2.5em;
+        }
+        
+        .day-title {
+            font-size: 1.8em;
+        }
+        
+        .event-title {
+            font-size: 1.3em;
+        }
+
+        .suggestions-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <h1>🦁 LANimals 2025 🎮</h1>
+                <p class="subtitle">December 19-21, 2025</p>
+                <p class="tagline">Where Legends Are Made</p>
+            </div>
+        </div>
+
+<div class="day-section">
+        <div class="day-header">
+            <span class="day-icon">🌙</span>
+            <span class="day-title">Friday, December 19</span>
+        </div>
+
+        <div class="event free">
+            <div class="event-time">18:00 - 20:30</div>
+            <div class="event-title">Arrival & Setup</div>
+            <div class="event-description">Get your battlestation ready, grab some snacks, and settle in</div>
+        </div>
+
+        <div class="event special">
+            <div class="event-time">20:30 - 21:00</div>
+            <div class="event-title">🎤 Welcome Word</div>
+            <div class="event-description">Official opening of LANimals 2025 - gather round!</div>
+        </div>
+
+        <div class="event coop">
+            <div class="event-time">21:00 - 22:30</div>
+            <div class="event-title">RV There Yet Session</div>
+            <div class="event-description">Road trip chaos - coordinate and survive together</div>
+        </div>
+
+        <div class="event tournament">
+            <div class="event-time">22:30 - 00:00</div>
+            <div class="event-title">PEAK Tournament</div>
+            <div class="event-description">Competitive climbing action - reach the summit!</div>
+        </div>
+
+        <div class="event special">
+            <div class="event-time">00:00 - 01:30</div>
+            <div class="event-title">Among Us</div>
+            <div class="event-description">Social deduction and betrayal - who can you trust?</div>
+        </div>
+
+        <div class="event coop">
+            <div class="event-time">01:30 - 03:00</div>
+            <div class="event-title">Red Alert 2 / Age of Empires</div>
+            <div class="event-description">Classic RTS warfare - build your base and crush your enemies</div>
+        </div>
+
+        <div class="event free">
+            <div class="event-time">03:00 - Late</div>
+            <div class="event-title">Free Play / Late Night Grind</div>
+        </div>
+    </div>
+
+    <div class="day-section">
+        <div class="day-header">
+            <span class="day-icon">☀️</span>
+            <span class="day-title">Saturday, December 20</span>
+        </div>
+
+        <div class="event free">
+            <div class="event-time">10:00 - 17:30</div>
+            <div class="event-title">Morning & Afternoon Free Play</div>
+            <div class="event-description">Sleep in, grind your favorites, or organize impromptu matches</div>
+        </div>
+
+        <div class="event free">
+            <div class="event-time">17:30 - 19:00</div>
+            <div class="event-title">Dinner Break</div>
+        </div>
+
+        <div class="event main-event">
+            <div class="event-time">19:00 - 22:00</div>
+            <div class="event-title">⭐ MAIN EVENT: League of Legends Tournament <span class="badge">Prime Time</span></div>
+            <div class="event-description">
+                <ul class="event-list">
+                    <li>5v5 Summoner's Rift tournament</li>
+                    <li>Custom game modes between matches</li>
+                    <li>Prizes for winners</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="event tournament">
+            <div class="event-time">22:00 - 00:00</div>
+            <div class="event-title">🏎️ Mario Kart DOUBLE DASH Tournament</div>
+            <div class="event-description">Racing championship - prove who's the fastest on the track!</div>
+        </div>
+
+        <div class="event main-event">
+            <div class="event-time">00:00 - 02:00</div>
+            <div class="event-title">⭐ MAIN EVENT: Counter-Strike 2 Tournament <span class="badge">Prime Time</span></div>
+            <div class="event-description">
+                <ul class="event-list">
+                    <li>5v5 competitive brackets</li>
+                    <li>Best-of-3 format</li>
+                    <li>Grand prize for champions</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="event free">
+            <div class="event-time">02:00 - Late</div>
+            <div class="event-title">Post-Tournament Free Play</div>
+            <div class="event-description">Wind down or keep the energy going</div>
+        </div>
+    </div>
+
+    <div class="day-section">
+        <div class="day-header">
+            <span class="day-icon">🌅</span>
+            <span class="day-title">Sunday, December 21</span>
+        </div>
+
+        <div class="event free">
+            <div class="event-time">10:00 - 12:00</div>
+            <div class="event-title">Late Morning Free Play</div>
+            <div class="event-description">Recovery mode activated</div>
+        </div>
+
+        <div class="event coop">
+            <div class="event-time">12:00 - 13:30</div>
+            <div class="event-title">Lethal Company Session</div>
+            <div class="event-description">Explore abandoned facilities - try not to scream</div>
+        </div>
+
+        <div class="event special">
+            <div class="event-time">13:30 - 15:00</div>
+            <div class="event-title">🤼 DRUNKEN WRESTLERS 2 Tournament</div>
+            <div class="event-description">Ridiculous ragdoll wrestling chaos - may the best drunk win!</div>
+        </div>
+
+        <div class="event tournament">
+            <div class="event-time">15:00 - 16:30</div>
+            <div class="event-title">Grand Finals & Special Challenges</div>
+            <div class="event-description">
+                <ul class="event-list">
+                    <li>Tournament finals from the weekend</li>
+                    <li>Fun challenges (CS surf, trick shots, speedruns)</li>
+                    <li>Highlight reel & funny moments</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="event special">
+            <div class="event-time">16:30 - 17:00</div>
+            <div class="event-title">🏆 Awards Ceremony & Closing</div>
+            <div class="event-description">Tournament winners, MVP awards, best moments</div>
+        </div>
+
+        <div class="event free">
+            <div class="event-time">17:00</div>
+            <div class="event-title">Teardown & Farewell</div>
+            <div class="event-description">Pack up and say your goodbyes - see you at the next LAN!</div>
+        </div>
+    </div>
+
+    <div class="notes">
+        <h3>📋 Notes & Guidelines</h3>
+        <div class="note-item">
+            <strong>Priority Games:</strong> League of Legends and Counter-Strike 2 will have dedicated server time and priority during their tournament slots. Make sure you're warmed up!
+        </div>
+        <div class="note-item">
+            <strong>Focused Gaming:</strong> Each time slot features one specific game to ensure we get maximum participation and the best experience. Jump in when your favorite games are scheduled!
+        </div>
+        <div class="note-item">
+            <strong>Tournament Sign-ups:</strong> Register for tournaments on Friday evening or Saturday morning. We'll organize brackets based on skill level to keep things fun and competitive.
+        </div>
+        <div class="note-item">
+            <strong>Late Night Gaming:</strong> The best LAN moments happen after midnight. All games available 24/7 for the dedicated grinders during free play periods.
+        </div>
+        <div class="note-item">
+            <strong>Free Play = Anything Goes:</strong> During free play periods, organize whatever you want - impromptu matches, ranked grinds, or choose from the suggestions below.
+        </div>
+    </div>
+
+    <div class="suggestions">
+        <h3>🎮 Grind & Free Play Suggestions</h3>
+        <p style="margin-bottom: 20px; opacity: 0.9;">If you don't feel like joining the scheduled activity, here are some great alternatives to play solo or with a few friends:</p>
+        
+        <div class="suggestions-grid">
+            <div class="suggestion-category">
+                <h4>🏗️ Co-op Survival & Building</h4>
+                <ul>
+                    <li>Valheim</li>
+                    <li>7 Days to Die</li>
+                    <li>Don't Starve Together</li>
+                    <li>Rust</li>
+                </ul>
+            </div>
+
+            <div class="suggestion-category">
+                <h4>⚔️ Competitive Grinds</h4>
+                <ul>
+                    <li>League of Legends</li>
+                    <li>Counter-Strike 2</li>
+                    <li>Hearthstone</li>
+                    <li>Magic Arena</li>
+                </ul>
+            </div>
+
+            <div class="suggestion-category">
+                <h4>🎉 Party & Casual Games</h4>
+                <ul>
+                    <li>Golf With Your Friends</li>
+                    <li>Golf It!</li>
+                    <li>Stick Fight: The Game</li>
+                    <li>Liar's Bar</li>
+                    <li>Overcooked</li>
+                </ul>
+            </div>
+
+            <div class="suggestion-category">
+                <h4>🎲 Strategy & RTS</h4>
+                <ul>
+                    <li>Red Alert 2</li>
+                    <li>Age of Empires</li>
+                    <li>Arc Raiders</li>
+                </ul>
+            </div>
+
+            <div class="suggestion-category">
+                <h4>🤪 Chaos & Challenge</h4>
+                <ul>
+                    <li>Chained Together</li>
+                    <li>DRUNKEN WRESTLERS 2</li>
+                    <li>2XKO (if released!)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        🦁 LANimals 2025 - Where Legends Are Made 🎮
+    </div>
+</div>
+</body>
+</html>
